@@ -23,12 +23,8 @@ counts_t * countFile(const char * filename, kvarray_t * kvPairs) {
         *ptr1='\0';
         value = lookupValue(kvPairs, line);
         addCount(count, value);
-        // printf("did lookup of %s in kvPairs, found %s\n", line, value);
-        // free(line);
     }
     free(line);
-    // printKVs(kvPairs);
-    // printf("%d", kvPairs->list_len);
     if(fclose(f)!=0) {
         fprintf(stderr, "Unable to close countFile");
         return NULL;
@@ -45,9 +41,7 @@ int main(int argc, char ** argv) {
     counts_t * c=NULL;
     char ext[] = ".counts";
     for(int i=2; i<argc; i++) {
-        // printf("OPENING FILE: %s\n", argv[i]);
         c = countFile(argv[i], kv);
-        // printf("counts_t contains array len:%d unknown:%d\n", c->array_len, c->unknown_count);
         char * outName = malloc(sizeof(* outName)*(strlen(argv[i])+8));
         strcpy(outName, argv[i]);
         strcat(outName, ext);
@@ -60,7 +54,6 @@ int main(int argc, char ** argv) {
         free(outName);
         freeCounts(c);
     }
-    // freeCounts(c);
     freeKVs(kv);
     return EXIT_SUCCESS;
 }
