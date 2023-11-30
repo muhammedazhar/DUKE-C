@@ -2,18 +2,14 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <limits.h>
-
 #define CLICK_KNOWN_MINE -2
 #define CLICK_INVALID -1
 #define CLICK_CONTINUE 0
 #define CLICK_LOSE 1
-
 #define KNOWN_MINE -3
 #define HAS_MINE -2
 #define UNKNOWN -1
-
 #define IS_MINE(x) ((x) == HAS_MINE || (x) == KNOWN_MINE)
-
 
 struct _board_t {
     int ** board;
@@ -27,9 +23,6 @@ typedef struct _board_t board_t;
 void addRandomMine(board_t * b) {
     int x;
     int y;
-    // We could have a board too small for the number
-    // of mines that we request. try w*h*10 times before
-    // we give up
     int limit = b->width * b->height * 10;
     do {
         x = random() % b->width;
@@ -56,7 +49,6 @@ board_t * makeBoard(int w, int h, int numMines) {
         line=NULL;
         free(line);
     }
-    
     b->board=matrix;
     for (int i=0; i<numMines; i++) {
         addRandomMine(b);
@@ -126,7 +118,7 @@ int countMines(board_t * b, int x, int y) {
     }
     return count;
 }
-// printf("returning count: %d",count);
+
 int click (board_t * b, int x, int y) {
     if (x < 0 || x >= b->width || y < 0 || y >= b->height) {
         return CLICK_INVALID;
