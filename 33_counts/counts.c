@@ -6,7 +6,6 @@
 counts_t * createCounts(void) {
     counts_t * count = malloc(sizeof(* count));
     count->array = NULL;
-    // count->array = malloc(sizeof(* count->array));
     count->array_len=0;
     count->unknown_count=0;
     return count;
@@ -23,7 +22,6 @@ void addCount(counts_t * c, const char * name) {
         c->array = realloc(c->array, (c->array_len+1)*sizeof(* c->array));
         for(int i=0; i<c->array_len; i++) {
             if(strcmp(c->array[i]->value, name)==0) {
-                // printf("same %s\n",entry);
                 c->array[i]->count++;
                 free(entry);
                 return;
